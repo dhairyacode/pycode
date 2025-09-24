@@ -1,64 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PYCODE | Dhairyacode</title>
-    <link rel="stylesheet" href="cs/style.css">
-    <link rel="icon" type="image/png" href="logo.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>v1.5 Intro</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: white;
+      height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Intro section full center */
+    #introSection {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .intro h1 {
+      font-size: 10rem;
+      margin: 0;
+    }
+
+    .intro .highlight {
+      color: black;
+      text-decoration: underline;
+      text-decoration-color: #00BCFF;
+    }
+
+    .intro .released {
+      font-size: 5rem;
+      color: black;
+      margin-top: 10px;
+    }
+
+    .explore-btn {
+      margin-top: 20px;
+      padding: 10px 25px;
+      background: #00BCFF;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .explore-btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* Split layout */
+    #splitContainer {
+      display: none;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      box-sizing: border-box;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    #splitContainer.show {
+      opacity: 1;
+    }
+
+    .split-content {
+      display: flex;
+      width: 100%;
+      max-width: 1000px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .left-side {
+      flex: 1;
+      padding: 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .left-side.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .left-side h2 {
+      color: #00BCFF;
+      margin-bottom: 15px;
+    }
+
+    .left-side p {
+      color: black;
+      font-size: 1.1rem;
+    }
+
+    .right-side {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .code-container {
+      background: #1e1e1e;
+      color: white;
+      font-family: monospace;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      width: 80%;
+      max-width: 400px;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 1s ease, transform 1s ease;
+      white-space: pre-wrap;
+    }
+	
+    .code-container.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Syntax colors */
+    .comment { color: #6A9955; }
+    .keyword { color: #569CD6; }
+    .string { color: #CE9178; }
+
+    /* TRY button */
+    .try-btn {
+      margin-top: 40px;
+      padding: 12px 30px;
+      background: #00BCFF;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .try-btn:hover {
+      transform: scale(1.1);
+      background: #00BCFF;
+    }
+  </style>
 </head>
-<body class="light-mode">
+<body>
+  <!-- Intro -->
+  <div class="intro" id="introSection">
+    <div class="released">All new <span class="highlight">v1.5</span></div>
+	<div class="released">Released!</div>
+    <button class="explore-btn" id="exploreBtn">Explore</button>
+  </div>
 
-    <!-- Header with Gradient Title and Animated Text -->
-    <header class="app-header">
-        <h1>PYCODE</h1>
-        <div class="animated-text">
-            <span id="animatedText"></span>
-        </div>
-    </header>
-
-    <!-- Control Panel -->
-    <div class="control-panel">
-        <div class="control-group">
-            <label for="versionSelect">Version:</label>
-            <select id="versionSelect">
-                <option value="v1.0">v1.0</option>
-                <option value="v2.0" disabled>v2.0 (Coming Soon)</option>
-            </select>
-        </div>
-        <div class="control-group">
-            <label for="themeSelect">Theme Mode:</label>
-            <select id="themeSelect">
-                <option value="light">Light</option>
-                <option value="dark">Dark</option>
-            </select>
-        </div>
+  <!-- Split layout -->
+  <div id="splitContainer">
+    <div class="split-content">
+      <div class="left-side" id="leftSide">
+        <h2>All new Output Generation.</h2>
+        <p>
+          New v1.5 brings support of output generations of any entered<br>
+          python code with support of libarires.
+        </p>
+      </div>
+      <div class="right-side">
+        <div class="code-container" id="codeContainer"></div>
+      </div>
     </div>
+    <button class="try-btn" onclick="window.location.href='https://pycode-proxy.vercel.app/frontend'">
+      TRY
+    </button>
+  </div>
 
-    <!-- Interaction Container -->
-    <div class="interaction-container">
-        <div class="messages-container" id="messagesContainer">
-            <div class="chat-message left">PYCODE: Hi There, What kind of doubt you have or facing any syntax error?</div>
-        </div>
+  <script>
+    const exploreBtn = document.getElementById("exploreBtn");
+    const introSection = document.getElementById("introSection");
+    const splitContainer = document.getElementById("splitContainer");
+    const leftSide = document.getElementById("leftSide");
+    const codeContainer = document.getElementById("codeContainer");
 
-        <div class="user-input-container">
-            <input type="text" id="userInput" placeholder="Type your question here...">
-            <button id="sendBtn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 4L12 20M12 4L5 11M12 4L19 11" stroke="white" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-            </button>
-        </div>
-    </div>
+    const code = `<span class="comment"># TESTING</span>\n<span class="keyword">print</span>(<span class="string">"Hello World"</span>)`;
+    let index = 0;
 
-    <!-- Footer -->
-    <footer class="footer-text">
-        <span> ® All Rights Reserved. </span>
-        <a href="https://dhairyacode.github.io" target="_blank">Dhairya</a>
-    </footer>
+    exploreBtn.addEventListener("click", () => {
+      introSection.style.display = "none";
+      splitContainer.style.display = "flex";
 
-    <script src="js/python.js"></script>
+      setTimeout(() => {
+        splitContainer.classList.add("show");
+        leftSide.classList.add("show");
+
+        setTimeout(() => {
+          codeContainer.classList.add("show");
+          typeCode();
+        }, 800);
+      }, 200);
+    });
+
+    function typeCode() {
+      if (index < code.length) {
+        codeContainer.innerHTML = code.substring(0, index + 1);
+        index++;
+        setTimeout(typeCode, 17); // typing speed
+      }
+    }
+  </script>
 </body>
 </html>
